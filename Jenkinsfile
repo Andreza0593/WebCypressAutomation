@@ -4,6 +4,8 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
+                // Mensagem que será escrita no console do Jenkins
+                echo 'Escrevendo no arquivo de log...'
                 sh 'npm install'
             }
         }
