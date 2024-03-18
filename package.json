@@ -9,9 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "engines": {
-    "node": ">=21.6.2"
-  },
   "dependencies": {
     "cypress": "^13.7.0"
   }
