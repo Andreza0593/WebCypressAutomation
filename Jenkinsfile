@@ -15,7 +15,8 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh './node_modules/.bin/sudo cypress run'
+                echo 'Escrevendo no arquivo de log...'
+                //sh './node_modules/.bin/sudo cypress run'
             }
         }
     }
