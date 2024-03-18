@@ -7,6 +7,7 @@ pipeline {
                 // Mensagem que será escrita no console do Jenkins
                 echo 'Escrevendo no arquivo de log...'
                 sh 'npm install'
+                
 
                 
                 
@@ -14,7 +15,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh './node_modules/.bin/cypress run'
+                sh './node_modules/.bin/cypress run --headless'
             }
         }
     }
