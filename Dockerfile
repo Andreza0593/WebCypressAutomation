@@ -1,16 +1,17 @@
-# Use a imagem base do Ubuntu
-FROM ubuntu:20.04
+# Use a imagem oficial do Jenkins
+FROM jenkins/jenkins:latest
 
-# Atualize os pacotes do sistema
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
 
-# Copie o script de inicialização do seu projeto para dentro do contêiner
-COPY start.sh /usr/src/app/
+# Copia os arquivos package.json e package-lock.json para o diretório de trabalho
+COPY package*.json ./
 
-# Defina o diretório de trabalho
-WORKDIR /usr/src/app
+# Instala as dependências do projeto
+RUN npm install
 
-# Especifique o comando de inicialização do contêiner
-CMD ["bash", "start.sh"]
+# Copia todo o código-fonte do projeto para o diretório de trabalho
+COPY . .
+
+# Exemplo de comando para executar os testes Cypress
+CMD ["npm", "run", "test"]

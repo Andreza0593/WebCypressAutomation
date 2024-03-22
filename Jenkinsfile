@@ -1,34 +1,29 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Install Dependencies') {
-            steps {
-                // Mensagem que será escrita no console do Jenkins
-                echo 'Escrevendo no arquivo de log...'
-                sh 'npm install'
-                
-
-                
-                
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                echo 'Escrevendo no arquivo de log...'
-                //sh './node_modules/.bin/sudo cypress run'
-            }
+    agent {
+        docker {
+            // Use a imagem Docker do Jenkins
+            image 'jenkins/jenkins:latest'
+            // Defina as opções de execução do contêiner Docker, se necessário
+            args '-v /var/run/docker.sock:/var/run/docker.sock' 
         }
     }
-
-
-
-
-
-
+    stages {
+        stage('Build') {
+            steps {
+                // Comandos de build, se necessário
+            }
+        }
+        stage('Test') {
+            steps {
+                // Comandos para executar os testes Cypress dentro do contêiner Docker
+                sh 'npm run test'
+            }
+        }
+        // Outros estágios do pipeline, se necessário
+    }
     post {
         always {
-            junit 'cypress/results/*.xml'
+            // Comandos para limpeza ou pós-processamento, se necessário
         }
     }
 }
